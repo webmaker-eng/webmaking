@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order</title>
+    <link rel="stylesheet" href="order.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+      <section id="order" class="order-section">
+  <div class="order-container">
+    <h2>Order Your Website</h2>
+    <p>Fill the form below to request your website. I’ll contact you within 24 hours.</p>
+
+    <form class="order-form" id="orderForm" onsubmit="return validateOrderForm()">
+      <div class="form-group">
+        <label for="order-name">Full Name*</label>
+        <input type="text" id="order-name" placeholder="Your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="order-email">Email Address*</label>
+        <input type="email" id="order-email" placeholder="your@email.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="website-type">Website Type*</label>
+        <select id="website-type" required>
+          <option value="">-- Select one --</option>
+          <option>Business Website</option>
+          <option>Portfolio</option>
+          <option>E-commerce</option>
+          <option>Landing Page</option>
+          <option>Blog</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="order-details">Describe Your Requirements*</label>
+        <textarea id="order-details" rows="5" placeholder="Tell me what you need..." required></textarea>
+      </div>
+
+      <button type="submit">Submit Order</button>
+      <p id="orderStatus" class="form-status"></p>
+    </form>
+  </div>
+</section>
+
+
+<script>
+function validateOrderForm() {
+  const status = document.getElementById('orderStatus');
+  status.textContent = '';
+
+  const name = document.getElementById('order-name').value.trim();
+  const email = document.getElementById('order-email').value.trim();
+  const type = document.getElementById('website-type').value;
+  const details = document.getElementById('order-details').value.trim();
+
+  if (!name || !email || !type || !details) {
+    status.textContent = "Please fill out all required fields.";
+    status.style.color = "crimson";
+    return false;
+  }
+
+  // Simulate form submit — replace this with your real email handling logic (Formspree, EmailJS, etc.)
+  status.textContent = "Thank you! Your order has been received.";
+  status.style.color = "green";
+
+  document.getElementById("orderForm").reset();
+  return false;
+}
+</script>
+</body>
+</html>

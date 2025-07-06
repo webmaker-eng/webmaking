@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="./contact.css">
+</head>
+<body>
+   <section id="contact" class="contact-section">
+  <div class="contact-container">
+    
+    <!-- Left‑hand: info -->
+    <div class="contact-info">
+      <h2>Let’s Build Your Website</h2>
+      <p>Have a project in mind? Message me and I’ll reply within 24 hours.</p>
+
+      <ul class="contact-details">
+        <li><strong>Email:</strong> <a href="mailto:yourname@gmail.com">a40042534@gmail.com</a></li>
+        <li><strong>Phone:</strong> <a href="tel:+92 349 593 4275">+92 349 593 4275</a></li>
+        <li><strong>Location:</strong> Gilgit, Pakistan</li>
+      </ul>
+
+      <!-- Socials -->
+      
+    </div>
+
+    <!-- Right‑hand: form -->
+    <form class="contact-form" id="contactForm" onsubmit="return validateForm()">
+      <div class="form-group">
+        <label for="name">Name*</label>
+        <input type="text" id="name" placeholder="Your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email*</label>
+        <input type="email" id="email" placeholder="your@email.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message*</label>
+        <textarea id="message" rows="5" placeholder="Tell me about your project" required></textarea>
+      </div>
+
+      <button type="submit">Send Message</button>
+      <p id="formStatus" class="form-status"></p>
+    </form>
+  </div>
+</section>
+
+
+
+<script src="https://kit.fontawesome.com/8c12345678.js" crossorigin="anonymous"></script>
+<script>
+function validateForm() {
+  const status = document.getElementById('formStatus');
+  status.textContent = '';           // reset
+
+  const name  = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const msg   = document.getElementById('message').value.trim();
+
+  if (!name || !email || !msg) {
+    status.textContent = 'Please fill in all required fields.';
+    status.style.color = 'crimson';
+    return false;                    // prevent submission
+  }
+
+  // 👉 Replace below with your email‑sending logic (EmailJS, Formspree, etc.)
+  status.textContent = 'Thanks! Your message was sent.';
+  status.style.color = 'green';
+
+  document.getElementById('contactForm').reset();
+  return false;                      // stop default submit (demo only)
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="./about.css">
+   <style>
+    /* ========== RESET & BASE STYLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fbfc;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #007BFF;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+    }
+
+    nav {
+      background-color: #0056b3;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    .about-section {
+      padding: 4rem 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .about-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .about-section p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .skill {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-weight: bold;
+      color: #007BFF;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    /* Animation */
+    /* .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    } */
+
+    /* .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    } */
+
+    @media (max-width: 768px) {
+      .skills {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Web maker Studio</h1>
+  </header>
+
+  <nav>
+    <a href="./mysite.html">Home</a>
+    <a href="./aboutus.html">About Us</a>
+    <a href="./order.html">Order</a>
+    <a href="./contact.html">Contact</a>
+  </nav>
+
+  <section class="about-section fade-in">
+    <h2>Who I Am</h2>
+    <p>
+      I’m Zaryab Ahmed, a passionate and independent web designer & developer with a mission to help individuals and businesses grow online. Whether you're a startup, a local business, or an artist — I design websites that reflect your unique brand and needs.
+    </p>
+
+    <h2>What I Do</h2>
+    <p>
+      From responsive business websites to creative portfolios and full-featured online stores, I provide modern, fast, and user-friendly solutions. My work is guided by clean design principles, user-focused functionality, and a strong attention to detail.
+    </p>
+
+    <h2 id="mission">My Mission</h2>
+    <p>
+      My goal is to make website development simple, affordable, and effective. I believe in building long-term relationships by offering honest advice, quality work, and full support after project delivery.
+    </p>
+
+    <h2>My Skills</h2>
+    <div class="skills">
+      <div class="skill">HTML5 & CSS3</div>
+      <div class="skill">JavaScript</div>
+      <div class="skill">Responsive Design</div>
+      <div class="skill">WordPress</div>
+      <div class="skill">PHP & MySQL</div>
+      <div class="skill">SEO Basics</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Contact: <a href="mailto:a40042534@gmail.com" style="color:#ffcc00;">a40042534@gmail.com</a></p>
+    <p>© 2025 Web maker Studio. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Fade-in animation on scroll
+    window.addEventListener('scroll', () => {
+      const fades = document.querySelectorAll('.fade-in');
+      fades.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          el.classList.add('visible');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
