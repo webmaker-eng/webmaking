@@ -1,0 +1,61 @@
+h1{
+    text-align: center;
+    color: rgb(255, 183, 0);
+}
+.p1{
+    color: #000000;
+    text-align: justify;
+    text-align-last: center;
+}
+.d2{
+    padding-left: 70px;
+    width: 1200px;
+}
+body{
+    background-color: #ffffff;
+}
+a{
+    text-decoration: none;
+    color: rgb(0, 213, 255);
+}
+.d2>h3{
+    color: #000;;
+}
+.n2>img{
+    padding-top: 0px;
+    width: 190px;
+    padding-left: 210px;
+}
+.n2 a{
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
+    text-decoration: none;
+}
+.n1{
+    display: flex;
+    gap: 380px;
+}
+.n2{
+    display: flex;
+    gap: 20px;
+     align-items: center;
+    justify-content: center;
+}
+nav a{
+    color: rgb(1, 136, 6);
+}
+nav{
+    display: flex;
+    gap: 120px;
+}
+button{
+    
+    padding-top: 15px;
+   border: none;
+   background-color: #fff;
+}
+*{
+    letter-spacing: 1px;
+    line-height: 26px;
+}

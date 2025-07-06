@@ -1,0 +1,70 @@
+.order-section {
+  padding: 4rem 1rem;
+  background: #ffffff;
+  color: #333;
+  text-align: center;
+}
+
+.order-container {
+  max-width: 700px;
+  margin: auto;
+}
+
+.order-container h2 {
+  font-size: 2.2rem;
+  color: #0056b3;
+  margin-bottom: 0.5rem;
+}
+
+.order-container p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.order-form {
+  background: #f9fbfc;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  text-align: left;
+}
+
+.order-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.order-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.order-form input,
+.order-form select,
+.order-form textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.order-form button[type="submit"] {
+  background: #0056b3;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.order-form button:hover {
+  background: #003f87;
+}
+
+.form-status {
+  margin-top: 1rem;
+  font-weight: bold;
+}
