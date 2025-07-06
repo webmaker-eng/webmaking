@@ -1,0 +1,38 @@
+.n2>img{
+    padding-top: 0px;
+    width: 190px;
+    padding-left: 30px;
+}
+.n2 a{
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
+    text-decoration: none;
+}
+.n1{
+    display: flex;
+    gap: 700px;
+}
+.n2{
+    display: flex;
+    gap: 20px;
+     align-items: center;
+    justify-content: center;
+}
+nav a{
+    color: rgb(13, 144, 30);
+}
+nav{
+    display: flex;
+    gap: 120px;
+}
+button{
+    
+    padding-top: 15px;
+   border: none;
+   background-color: #fff;
+}
+*{
+    letter-spacing: 1px;
+    line-height: 26px;
+}
