@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+      <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="mysite.css">
+</head>
+<body>
+
+    <title>Get Your Website | Web maker Studio</title>
+  <style>
+    /* ===== Reset ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #007BFF;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+    }
+
+    nav {
+      background-color: #0056b3;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    section.hero {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .hero button:hover {
+      background-color: rgb(0, 86, 179);
+    }
+
+    section.services {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .services h3 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .services-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .service {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 300px;
+    }
+
+    .service h4 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .services-list {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Web making Studio</h1>
+    <p>Beautiful, Modern Websites — Built Just for You</p>
+  </header>
+
+  <nav>
+    <a href="./mysite.html">Home</a>
+    <a href="./aboutus.html">About Us</a>
+    <a href="./order.html">Order</a>
+    <a href="./contact.html">Contact</a>
+  </nav>
+
+  <section class="hero" id="home">
+    <h2>Need a Website?</h2>
+    <p>I create modern, fast, and beautiful websites for businesses, portfolios, or personal use. Let’s bring your idea to life.</p>
+    <a class="a" href="./order.html">Order Your Website Now</a>
+  </section>
+
+  <section class="services" id="services">
+    <h3>What I Offer</h3>
+    <div class="services-list">
+      <div class="service">
+        <h4>Business Websites</h4>
+        <p>Get a professional website for your business to boost your online presence.</p>
+      </div>
+      <div class="service">
+        <h4>Portfolio Designs</h4>
+        <p>Creative portfolio websites to showcase your work, skills, or services.</p>
+      </div>
+      <div class="service">
+        <h4>E-commerce Stores</h4>
+        <p>Online shops with product pages, payment systems, and more.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero" id="order">
+    <h2>Ready to Get Started?</h2>
+    <p>Click below and send me your details. I’ll contact you within 24 hours.</p>
+    <a class="a" href="contact.html">Request a Website</a>
+  </section>
+
+  <footer id="contact">
+    <p>Contact: <a href="mailto:a40042534@gmail.com" style="color: #ffcc00;">a40042534@gmail.com</a></p>
+    <p>© 2025 Web maker Studio. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function placeOrder() {
+      alert("Thank you for your interest! Please send your website requirements to: a40042534@gmail.com");
+    }
+  </script>
+
+</body>
+</html>
