@@ -77,6 +77,12 @@ function validateForm() {
     status.style.color = 'crimson';
     return false;                    // prevent submission
   }
+     emailjs.init('_V9miKmRCjmjwu5LW');
+
+emailjs.sendForm(
+  'service_qk78mhq',
+  formElement
+);
 
   // 👉 Replace below with your email‑sending logic (EmailJS, Formspree, etc.)
   status.textContent = 'Thanks! Your message was sent.';
@@ -86,23 +92,8 @@ function validateForm() {
   return false;                      // stop default submit (demo only)
 }
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-  emailjs.init('_V9miKmRCjmjwu5LW'); // Public Key
-
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    emailjs.sendForm(
-      'service_uphzwks',    // ← Service ID
-      'template_YourID',    // ← Template ID
-      this
-    ).then(function(){
-      alert('Message sent ✔');
-    }, function(err){
-      alert('Failed → ' + JSON.stringify(err));
-    });
   });
-</script>
-</script>
+   
 
 </body>
 </html>
