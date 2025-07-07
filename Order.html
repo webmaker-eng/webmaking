@@ -83,6 +83,23 @@ function validateOrderForm() {
   document.getElementById("orderForm").reset();
   return false;
 }
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+  emailjs.init('_V9miKmRCjmjwu5LW'); // Public Key
+
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    emailjs.sendForm(
+      'service_uphzwks',    // ← Service ID
+      'template_YourID',    // ← Template ID
+      this
+    ).then(function(){
+      alert('Message sent ✔');
+    }, function(err){
+      alert('Failed → ' + JSON.stringify(err));
+    });
+  });
+</script>
 </script>
 </body>
 </html>
