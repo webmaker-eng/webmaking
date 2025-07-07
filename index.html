@@ -186,7 +186,24 @@
     <p>© 2025 Web maker Studio. All rights reserved.</p>
   </footer>
 
-  <script>
+ 
+
+      <script srzc="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+  emailjs.init('_V9miKmRCjmjwu5LW'); // Public Key
+
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    emailjs.sendForm(
+      'service_uphzwks',    // ← Service ID
+      'template_YourID',    // ← Template ID
+      this
+    ).then(function(){
+      alert('Message sent ✔');
+    }, function(err){
+      alert('Failed → ' + JSON.stringify(err));
+    });
+  });
     function placeOrder() {
       alert("Thank you for your interest! Please send your website requirements to: a40042534@gmail.com");
     }
