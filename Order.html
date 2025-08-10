@@ -85,13 +85,13 @@ function validateOrderForm() {
 }
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
-  emailjs.init('_V9miKmRCjmjwu5LW'); // Public Key
+  emailjs.init('ZGurPmx-hJoO9IPNO_5gf'); // Public Key
 
   document.getElementById('contactForm').addEventListener('submit', function(e){
     e.preventDefault();
     emailjs.sendForm(
-      'service_uphzwks',    // ← Service ID
-      'template_YourID',    // ← Template ID
+      'service_8e4zm58',    // ← Service ID
+      'template_qvn8yfi',    // ← Template ID
       this
     ).then(function(){
       alert('Message sent ✔');
@@ -103,3 +103,4 @@ function validateOrderForm() {
 </script>
 </body>
 </html>
+
