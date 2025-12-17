@@ -1,90 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
-    <link rel="icon" type="image/x-icon" href="favicon.png">
-    <link rel="stylesheet" href="./contact.css">
-    <link rel="stylesheet" href="nav.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link rel="stylesheet" href="./contact.css">
+  <link rel="stylesheet" href="nav.css">
 </head>
 <body>
 
-     <header>
-    <h1>Web making Studio</h1>
-    <p>Beautiful, Modern Websites — Built Just for You</p>
-  </header>
-    <nav>
-    <a href="/webmaking/index.html">Home</a>
-    <a href="/webmaking/About Us.html">About Us</a>
-    <a href="/webmaking/Order.html">Order</a>
-    <a href="/webmaking/Contact.html">Contact</a>
-  </nav>
-   <section id="contact" class="contact-section">
+<header>
+  <h1>Web Making Studio</h1>
+  <p>Beautiful, Modern Websites — Built Just for You</p>
+</header>
+
+<nav>
+  <a href="/webmaking/index.html">Home</a>
+  <a href="/webmaking/About Us.html">About Us</a>
+  <a href="/webmaking/Order.html">Order</a>
+  <a href="/webmaking/Contact.html">Contact</a>
+</nav>
+
+<section id="contact" class="contact-section">
   <div class="contact-container">
-    
-    <!-- Left‑hand: info -->
+
+    <!-- Left info -->
     <div class="contact-info">
       <h2>Let’s Build Your Website</h2>
-      <p>Have a project in mind? Message me and I’ll reply within 24 hours.</p>
+      <p>Have a project in mind? Message me and I’ll reply within 24 hours.</p>
 
       <ul class="contact-details">
-        <li><strong>Email:</strong> <a href="mailto:yourname@gmail.com">a40042534@gmail.com</a></li>
-        <li><strong>Phone:</strong> <a href="tel:+92 349 593 4275">+92 349 593 4275</a></li>
+        <li><strong>Email:</strong> <a href="mailto:a40042534@gmail.com">a40042534@gmail.com</a></li>
+        <li><strong>Phone:</strong> <a href="tel:+923495934275">+92 349 593 4275</a></li>
         <li><strong>Location:</strong> Gilgit, Pakistan</li>
       </ul>
-
-      <!-- Socials -->
-      
     </div>
 
-    <!-- Right‑hand: form -->
-    <form class="contact-form" id="contactForm" onsubmit="return validateForm()">
+    <!-- Contact Form -->
+    <form class="contact-form" id="contactForm">
+
+      <!-- Honeypot -->
+      <input type="text" name="company" style="display:none">
+
       <div class="form-group">
         <label for="name">Name*</label>
-        <input type="text" id="name" placeholder="Your full name" required>
+        <input type="text" id="name" name="user_name" placeholder="Your full name" required>
       </div>
 
       <div class="form-group">
         <label for="email">Email*</label>
-        <input type="email" id="email" placeholder="your@email.com" required>
+        <input type="email" id="email" name="user_email" placeholder="your@email.com" required>
       </div>
 
       <div class="form-group">
         <label for="message">Message*</label>
-        <textarea id="message" rows="5" placeholder="Tell me about your project" required></textarea>
+        <textarea id="message" name="message" rows="5"
+          placeholder="Tell me about your project" required></textarea>
       </div>
 
       <button type="submit">Send Message</button>
       <p id="formStatus" class="form-status"></p>
     </form>
+
   </div>
 </section>
 
-
+<!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs@3/dist/email.min.js"></script>
+
 <script>
 (() => {
+
   /* ========= CONFIG ========= */
   const PUBLIC_KEY   = "_V9miKmRCjmjwu5LW";
   const SERVICE_ID  = "service_qk78mhq";
-  const TEMPLATE_ID = "template_2g3i9vi"; // 👈 replace
+  const TEMPLATE_ID = "template_2g3i9vi";
 
-  emailjs.init(_V9miKmRCjmjwu5LW);
+  emailjs.init(PUBLIC_KEY);
 
   const form = document.getElementById("contactForm");
   const status = document.getElementById("formStatus");
 
-  /* ========= SPINNER ========= */
+  /* ========= Spinner ========= */
   const spinner = document.createElement("span");
-  spinner.innerHTML = " ⏳ Sending...";
+  spinner.textContent = " ⏳ Sending...";
   spinner.style.marginLeft = "8px";
 
-  /* ========= SUBMIT ========= */
+  /* ========= Submit ========= */
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    /* 🛡️ Spam check (honeypot) */
+    // Spam protection
     if (form.company.value !== "") return;
 
     status.textContent = "";
@@ -92,36 +99,30 @@
     btn.disabled = true;
     btn.appendChild(spinner);
 
-    emailjs.sendForm(SERVICE_qk78mhq, TEMPLATE_2g3i9vi, form)
-      .then(() => {
-        spinner.remove();
-        btn.disabled = false;
+    emailjs.sendForm(
+      SERVICE_ID,
+      TEMPLATE_ID,
+      form
+    )
+    .then(() => {
+      spinner.remove();
+      btn.disabled = false;
 
-        /* 🎉 Success animation */
-        status.innerHTML = "✅ Message Sent Successfully!";
-        status.style.color = "green";
-        status.style.opacity = "0";
-        status.style.transition = "opacity 0.6s";
+      status.textContent = "✅ Message Sent Successfully!";
+      status.style.color = "green";
+      form.reset();
+    })
+    .catch(() => {
+      spinner.remove();
+      btn.disabled = false;
 
-        setTimeout(() => status.style.opacity = "1", 100);
-        form.reset();
-      })
-      .catch(() => {
-        spinner.remove();
-        btn.disabled = false;
-
-        status.textContent = "❌ Failed to send message.";
-        status.style.color = "crimson";
-      });
+      status.textContent = "❌ Failed to send message. Try again.";
+      status.style.color = "crimson";
+    });
   });
+
 })();
 </script>
 
-
 </body>
 </html>
-
-
-
-
-
