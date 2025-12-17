@@ -62,42 +62,65 @@
 </section>
 
 
-
-<script src="https://kit.fontawesome.com/8c12345678.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs@3/dist/email.min.js"></script>
 <script>
-function validateForm() {
-  const status = document.getElementById('formStatus');
-  status.textContent = '';           // reset
+(() => {
+  /* ========= CONFIG ========= */
+  const PUBLIC_KEY   = "_V9miKmRCjmjwu5LW";
+  const SERVICE_ID  = "service_qk78mhq";
+  const TEMPLATE_ID = "template_2g3i9vi"; // 👈 replace
 
-  const name  = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const msg   = document.getElementById('message').value.trim();
+  emailjs.init(_V9miKmRCjmjwu5LW);
 
-  if (!name || !email || !msg) {
-    status.textContent = 'Please fill in all required fields.';
-    status.style.color = 'crimson';
-    return false;                    // prevent submission
-  }
-     emailjs.init('_ZGurPmx-hJoO9IPNO_5gf');
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("formStatus");
 
-emailjs.sendForm(
-  'service_8e4zm58',
-  formElement
-);
+  /* ========= SPINNER ========= */
+  const spinner = document.createElement("span");
+  spinner.innerHTML = " ⏳ Sending...";
+  spinner.style.marginLeft = "8px";
 
-  // 👉 Replace below with your email‑sending logic (EmailJS, Formspree, etc.)
-  status.textContent = 'Thanks! Your message was sent.';
-  status.style.color = 'green';
+  /* ========= SUBMIT ========= */
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  document.getElementById('contactForm').reset();
-  return false;                      // stop default submit (demo only)
-}
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    /* 🛡️ Spam check (honeypot) */
+    if (form.company.value !== "") return;
+
+    status.textContent = "";
+    const btn = form.querySelector("button");
+    btn.disabled = true;
+    btn.appendChild(spinner);
+
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form)
+      .then(() => {
+        spinner.remove();
+        btn.disabled = false;
+
+        /* 🎉 Success animation */
+        status.innerHTML = "✅ Message Sent Successfully!";
+        status.style.color = "green";
+        status.style.opacity = "0";
+        status.style.transition = "opacity 0.6s";
+
+        setTimeout(() => status.style.opacity = "1", 100);
+        form.reset();
+      })
+      .catch(() => {
+        spinner.remove();
+        btn.disabled = false;
+
+        status.textContent = "❌ Failed to send message.";
+        status.style.color = "crimson";
+      });
   });
-   
+})();
+</script>
+
 
 </body>
 </html>
+
 
 
 
