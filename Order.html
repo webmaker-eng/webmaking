@@ -1,43 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order</title>
-    <link rel="stylesheet" href="Order.css">
-    <link rel="stylesheet" href="nav.css">
-    <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order | Web Making Studio</title>
+  <link rel="stylesheet" href="Order.css">
+  <link rel="stylesheet" href="nav.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-     <header>
-    <h1>Web making Studio</h1>
-    <p>Beautiful, Modern Websites — Built Just for You</p>
-  </header>
-      <nav>
-    <a href="/webmaking/index.html">Home</a>
-    <a href="/webmaking/About Us.html">About Us</a>
-    <a href="/webmaking/Order.html">Order</a>
-    <a href="/webmaking/Contact.html">Contact</a>
-  </nav>
-      <section id="order" class="order-section">
+
+<header>
+  <h1>Web Making Studio</h1>
+  <p>Beautiful, Modern Websites — Built Just for You</p>
+</header>
+
+<nav>
+  <a href="/webmaking/index.html">Home</a>
+  <a href="/webmaking/About Us.html">About Us</a>
+  <a href="/webmaking/Order.html">Order</a>
+  <a href="/webmaking/Contact.html">Contact</a>
+</nav>
+
+<section id="order" class="order-section">
   <div class="order-container">
     <h2>Order Your Website</h2>
     <p>Fill the form below to request your website. I’ll contact you within 24 hours.</p>
 
-    <form class="order-form" id="orderForm" onsubmit="return validateOrderForm()">
+    <form class="order-form" id="orderForm" novalidate>
+
+      <!-- Honeypot (spam protection) -->
+      <input type="text" name="company" tabindex="-1" autocomplete="off" style="display:none" />
+
       <div class="form-group">
         <label for="order-name">Full Name*</label>
-        <input type="text" id="order-name" placeholder="Your full name" required>
+        <input type="text" id="order-name" name="user_name" placeholder="Your full name" required />
       </div>
 
       <div class="form-group">
         <label for="order-email">Email Address*</label>
-        <input type="email" id="order-email" placeholder="your@email.com" required>
+        <input type="email" id="order-email" name="user_email" placeholder="your@email.com" required />
       </div>
 
       <div class="form-group">
         <label for="website-type">Website Type*</label>
-        <select id="website-type" required>
+        <select id="website-type" name="website_type" required>
           <option value="">-- Select one --</option>
           <option>Business Website</option>
           <option>Portfolio</option>
@@ -50,85 +57,78 @@
 
       <div class="form-group">
         <label for="order-details">Describe Your Requirements*</label>
-        <textarea id="order-details" rows="5" placeholder="Tell me what you need..." required></textarea>
+        <textarea id="order-details" name="details" rows="5" placeholder="Tell me what you need..." required></textarea>
       </div>
 
-      <button type="submit">Submit Order</button>
-      <p id="orderStatus" class="form-status"></p>
+      <button type="submit" id="submitBtn">Submit Order</button>
+      <p id="orderStatus" class="form-status" aria-live="polite"></p>
     </form>
   </div>
 </section>
 
-
+<!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs@3/dist/email.min.js"></script>
+
 <script>
-(() => {
-  // ====== CONFIG ======
-  const PUBLIC_KEY   = "_V9miKmRCjmjwu5LW";       // Your EmailJS Public Key
-  const SERVICE_ID   = "service_qk78mhq";          // Your Service ID
-  const TEMPLATE_ID  = "template_2g3i9vi";         // Your Template ID
+(function() {
+  const PUBLIC_KEY  = "_V9miKmRCjmjwu5LW";
+  const SERVICE_ID  = "service_qk78mhq";
+  const TEMPLATE_ID = "template_2g3i9vi";
 
-  emailjs.init(_V9miKmRCjmjwu5LW);
+  document.addEventListener('DOMContentLoaded', function() {
+    if (!window.emailjs) return;
 
-  const form = document.getElementById("orderForm");
-  const status = document.getElementById("orderStatus");
+    emailjs.init(PUBLIC_KEY);
 
-  // ====== Spinner ======
-  const spinner = document.createElement("span");
-  spinner.innerHTML = " ⏳ Sending...";
-  spinner.style.marginLeft = "8px";
+    const form = document.getElementById('orderForm');
+    const status = document.getElementById('orderStatus');
+    const button = document.getElementById('submitBtn');
 
-  // ====== FORM SUBMIT ======
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
+    const spinner = document.createElement('span');
+    spinner.textContent = ' ⏳ Sending...';
+    spinner.style.marginLeft = '8px';
 
-    // 🛡️ Spam protection
-    if (form.company.value !== "") return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
 
-    const name = form["name"].value.trim();
-    const email = form["email"].value.trim();
-    const type = form["type"].value;
-    const details = form["details"].value.trim();
+      // Honeypot check (anti-spam)
+      if (form.company.value.trim() !== '') return;
 
-    // ✅ Validation
-    if (!name || !email || !type || !details) {
-      status.textContent = "Please fill out all required fields.";
-      status.style.color = "crimson";
-      return;
-    }
+      // Validation: ensure all fields are filled
+      if (!form.user_name.value.trim() || !form.user_email.value.trim() || !form.website_type.value.trim() || !form.details.value.trim()) {
+        status.textContent = '❌ Please fill in all required fields.';
+        status.style.color = 'crimson';
+        return;
+      }
 
-    status.textContent = "";
-    const btn = form.querySelector("button");
-    btn.disabled = true;
-    btn.appendChild(spinner);
+      status.textContent = '';
+      status.style.color = '';
 
-    // ====== Send Email ======
-    emailjs.sendForm(SERVICE_qk78mhq, TEMPLATE_2g3i9vi, form)
-      .then(() => {
-        spinner.remove();
-        btn.disabled = false;
+      button.disabled = true;
+      if (!spinner.isConnected) button.appendChild(spinner);
 
-        // 🎉 Success animation
-        status.textContent = "✅ Your order has been received!";
-        status.style.color = "green";
-        status.style.opacity = "0";
-        status.style.transition = "opacity 0.6s";
-        setTimeout(() => status.style.opacity = "1", 100);
-
-        form.reset();
-      })
-      .catch((err) => {
-        spinner.remove();
-        btn.disabled = false;
-
-        status.textContent = "❌ Failed to send order. Try again!";
-        status.style.color = "crimson";
-        console.error("EmailJS Error:", err);
-      });
+      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form)
+        .then(() => {
+          spinner.remove();
+          button.disabled = false;
+          status.textContent = '✅ Your order has been received!';
+          status.style.color = 'green';
+          status.style.opacity = '0';
+          status.style.transition = 'opacity 0.6s';
+          setTimeout(() => status.style.opacity = '1', 100);
+          form.reset();
+        })
+        .catch((err) => {
+          spinner.remove();
+          button.disabled = false;
+          status.textContent = '❌ Failed to send order. Please try again!';
+          status.style.color = 'crimson';
+          console.error('EmailJS Error:', err);
+        });
+    });
   });
 })();
 </script>
+
 </body>
 </html>
-
-
