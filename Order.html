@@ -60,47 +60,75 @@
 </section>
 
 
+<script src="https://cdn.jsdelivr.net/npm/emailjs@3/dist/email.min.js"></script>
 <script>
-function validateOrderForm() {
-  const status = document.getElementById('orderStatus');
-  status.textContent = '';
+(() => {
+  // ====== CONFIG ======
+  const PUBLIC_KEY   = "_V9miKmRCjmjwu5LW";       // Your EmailJS Public Key
+  const SERVICE_ID   = "service_qk78mhq";          // Your Service ID
+  const TEMPLATE_ID  = "template_2g3i9vi";         // Your Template ID
 
-  const name = document.getElementById('order-name').value.trim();
-  const email = document.getElementById('order-email').value.trim();
-  const type = document.getElementById('website-type').value;
-  const details = document.getElementById('order-details').value.trim();
+  emailjs.init(_V9miKmRCjmjwu5LW);
 
-  if (!name || !email || !type || !details) {
-    status.textContent = "Please fill out all required fields.";
-    status.style.color = "crimson";
-    return false;
-  }
+  const form = document.getElementById("orderForm");
+  const status = document.getElementById("orderStatus");
 
-  // Simulate form submit — replace this with your real email handling logic (Formspree, EmailJS, etc.)
-  status.textContent = "Thank you! Your order has been received.";
-  status.style.color = "green";
+  // ====== Spinner ======
+  const spinner = document.createElement("span");
+  spinner.innerHTML = " ⏳ Sending...";
+  spinner.style.marginLeft = "8px";
 
-  document.getElementById("orderForm").reset();
-  return false;
-}
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-  emailjs.init('ZGurPmx-hJoO9IPNO_5gf'); // Public Key
-
-  document.getElementById('contactForm').addEventListener('submit', function(e){
+  // ====== FORM SUBMIT ======
+  form.addEventListener("submit", function(e) {
     e.preventDefault();
-    emailjs.sendForm(
-      'service_8e4zm58',    // ← Service ID
-      'template_qvn8yfi',    // ← Template ID
-      this
-    ).then(function(){
-      alert('Message sent ✔');
-    }, function(err){
-      alert('Failed → ' + JSON.stringify(err));
-    });
+
+    // 🛡️ Spam protection
+    if (form.company.value !== "") return;
+
+    const name = form["name"].value.trim();
+    const email = form["email"].value.trim();
+    const type = form["type"].value;
+    const details = form["details"].value.trim();
+
+    // ✅ Validation
+    if (!name || !email || !type || !details) {
+      status.textContent = "Please fill out all required fields.";
+      status.style.color = "crimson";
+      return;
+    }
+
+    status.textContent = "";
+    const btn = form.querySelector("button");
+    btn.disabled = true;
+    btn.appendChild(spinner);
+
+    // ====== Send Email ======
+    emailjs.sendForm(SERVICE_qk78mhq, TEMPLATE_2g3i9vi, form)
+      .then(() => {
+        spinner.remove();
+        btn.disabled = false;
+
+        // 🎉 Success animation
+        status.textContent = "✅ Your order has been received!";
+        status.style.color = "green";
+        status.style.opacity = "0";
+        status.style.transition = "opacity 0.6s";
+        setTimeout(() => status.style.opacity = "1", 100);
+
+        form.reset();
+      })
+      .catch((err) => {
+        spinner.remove();
+        btn.disabled = false;
+
+        status.textContent = "❌ Failed to send order. Try again!";
+        status.style.color = "crimson";
+        console.error("EmailJS Error:", err);
+      });
   });
-</script>
+})();
 </script>
 </body>
 </html>
+
 
