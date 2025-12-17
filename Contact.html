@@ -1,12 +1,14 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact</title>
-  <link rel="icon" type="image/x-icon" href="favicon.png">
-  <link rel="stylesheet" href="./contact.css">
-  <link rel="stylesheet" href="nav.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Web Making Studio</title>
+
+  <link rel="icon" type="image/x-icon" href="favicon.png" />
+  <link rel="stylesheet" href="./contact.css" />
+  <link rel="stylesheet" href="nav.css" />
 </head>
 <body>
 
@@ -38,91 +40,97 @@
     </div>
 
     <!-- Contact Form -->
-    <form class="contact-form" id="contactForm">
+    <form class="contact-form" id="contactForm" novalidate>
 
-      <!-- Honeypot -->
-      <input type="text" name="company" style="display:none">
+      <!-- Honeypot (anti-spam) -->
+      <input type="text" name="company" tabindex="-1" autocomplete="off" style="display:none" />
 
       <div class="form-group">
         <label for="name">Name*</label>
-        <input type="text" id="name" name="user_name" placeholder="Your full name" required>
+        <input type="text" id="name" name="user_name" placeholder="Your full name" required />
       </div>
 
       <div class="form-group">
         <label for="email">Email*</label>
-        <input type="email" id="email" name="user_email" placeholder="your@email.com" required>
+        <input type="email" id="email" name="user_email" placeholder="your@email.com" required />
       </div>
 
       <div class="form-group">
         <label for="message">Message*</label>
-        <textarea id="message" name="message" rows="5"
-          placeholder="Tell me about your project" required></textarea>
+        <textarea id="message" name="message" rows="5" placeholder="Tell me about your project" required></textarea>
       </div>
 
-      <button type="submit">Send Message</button>
-      <p id="formStatus" class="form-status"></p>
+      <button type="submit" id="submitBtn">Send Message</button>
+      <p id="formStatus" class="form-status" aria-live="polite"></p>
     </form>
 
   </div>
 </section>
 
 <!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs@3/dist/email.min.js" defer></script>
 
-<script>
-(() => {
-
+<script defer>
+(function () {
   /* ========= CONFIG ========= */
   const PUBLIC_KEY   = "_V9miKmRCjmjwu5LW";
-  const SERVICE_ID  = "service_qk78mhq";
-  const TEMPLATE_ID = "template_2g3i9vi";
+  const SERVICE_ID   = "service_qk78mhq";
+  const TEMPLATE_ID  = "template_2g3i9vi";
 
-  emailjs.init(PUBLIC_KEY);
+  document.addEventListener("DOMContentLoaded", function () {
+    if (!window.emailjs) return;
 
-  const form = document.getElementById("contactForm");
-  const status = document.getElementById("formStatus");
+    emailjs.init(PUBLIC_KEY);
 
-  /* ========= Spinner ========= */
-  const spinner = document.createElement("span");
-  spinner.textContent = " ⏳ Sending...";
-  spinner.style.marginLeft = "8px";
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("formStatus");
+    const button = document.getElementById("submitBtn");
 
-  /* ========= Submit ========= */
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+    /* ========= Spinner ========= */
+    const spinner = document.createElement("span");
+    spinner.textContent = " ⏳ Sending...";
+    spinner.style.marginLeft = "8px";
 
-    // Spam protection
-    if (form.company.value !== "") return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    status.textContent = "";
-    const btn = form.querySelector("button");
-    btn.disabled = true;
-    btn.appendChild(spinner);
+      // Honeypot spam check
+      if (form.company.value.trim() !== "") {
+        status.textContent = "";
+        return;
+      }
 
-    emailjs.sendForm(
-      SERVICE_ID,
-      TEMPLATE_ID,
-      form
-    )
-    .then(() => {
-      spinner.remove();
-      btn.disabled = false;
+      // Basic trim validation
+      if (!form.user_name.value.trim() || !form.user_email.value.trim() || !form.message.value.trim()) {
+        status.textContent = "❌ Please fill in all required fields.";
+        status.style.color = "crimson";
+        return;
+      }
 
-      status.textContent = "✅ Message Sent Successfully!";
-      status.style.color = "green";
-      form.reset();
-    })
-    .catch(() => {
-      spinner.remove();
-      btn.disabled = false;
+      status.textContent = "";
+      status.style.color = "";
 
-      status.textContent = "❌ Failed to send message. Try again.";
-      status.style.color = "crimson";
+      button.disabled = true;
+      if (!spinner.isConnected) button.appendChild(spinner);
+
+      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form)
+        .then(function () {
+          spinner.remove();
+          button.disabled = false;
+          status.textContent = "✅ Message sent successfully!";
+          status.style.color = "green";
+          form.reset();
+        })
+        .catch(function (error) {
+          console.error(error);
+          spinner.remove();
+          button.disabled = false;
+          status.textContent = "❌ Failed to send message. Please try again.";
+          status.style.color = "crimson";
+        });
     });
   });
-
 })();
 </script>
-
 </body>
 </html>
